@@ -36,18 +36,18 @@ end
 function Card.IsOrderMaterialCount(c,count,greater_or_equal_or_less)
 	if greater_or_equal_or_less=="Greater" then
 		while count<=5 do
-			if c:IsHasEffect(99000370+count) then
+			if c:IsHasEffect(99000300+count) then
 				return true
 			end
 			count=count+1
 		end
 	elseif greater_or_equal_or_less=="Equal" then
-		if c:IsHasEffect(99000370+count) then
+		if c:IsHasEffect(99000300+count) then
 			return true
 		end
 	elseif greater_or_equal_or_less=="Less" then
 		while count>=1 do
-			if c:IsHasEffect(99000370+count) then
+			if c:IsHasEffect(99000300+count) then
 				return true
 			end
 			count=count-1
@@ -58,11 +58,19 @@ function Card.IsOrderMaterialCount(c,count,greater_or_equal_or_less)
 end
 
 function Duel.OrderSummon(p,c)
-	if not c:IsType(TYPE_ORDER) then
+	if not (c:IsCustomType(CUSTOMTYPE_ORDER) or c:IsType(TYPE_ORDER)) then
 		return false
 	else
 		Duel.SpecialSummonRule(p,c,c:GetSummonType())
 	end
+end
+
+--커스텀타입 오더
+
+function Auxiliary.AddCustomTypeOrder(c)
+	local mt=getmetatable(c)
+	mt.CardType_Order=true
+	mt.custom_type=CUSTOMTYPE_ORDER
 end
 
 --오더 소환 유틸리티
@@ -70,9 +78,9 @@ end
 function Auxiliary.AddOrderProcedure(c,dir,gf,...)
 	local f={...}
 	local mt=getmetatable(c)
-	mt.CardType_Order=true
+	Auxiliary.AddCustomTypeOrder(c)
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(99000300,4))
+	e1:SetDescription(9900)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_SPSUMMON_PROC)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_IGNORE_IMMUNE)
@@ -91,7 +99,7 @@ function Auxiliary.AddOrderProcedure(c,dir,gf,...)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
-	e2:SetCode(99000370+#f)
+	e2:SetCode(99000300+#f)
 	c:RegisterEffect(e2)
 end
 function Auxiliary.OrderConditionFilter(c,ord)
@@ -141,7 +149,7 @@ function Auxiliary.OrderTarget(gf,...)
 		local mg=Duel.GetMatchingGroup(Auxiliary.OrderConditionFilter,tp,LOCATION_MZONE,0,nil,c)
 		local fg=Auxiliary.GetMustMaterialGroup(tp,EFFECT_MUST_BE_OMATERIAL)
 		Duel.SetSelectedCard(fg)
-		Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(99000300,5))
+		Duel.Hint(HINT_SELECTMSG,tp,9901)
 		local cancel=Duel.IsSummonCancelable()
 		local sg=mg:SelectSubGroup(tp,Auxiliary.OrderCheckGoal,cancel,#f,#f,tp,c,gf,table.unpack(f))
 		if sg then
