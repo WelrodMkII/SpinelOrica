@@ -10,22 +10,21 @@ user_configs.json <- new file or edit
 
 add this ▼
 
+	{
+		"repos": [
+			{
+				"url": "https://github.com/WelrodMkII/SpinelOrica",
+				"repo_name": "커스텀 확장팩",
+				"repo_path": "./expansions-2",
+				"data_path": "",
+				"pics_path": "pics",
+				"script_path": "script",
+				"should_update": true,
+				"should_read": true
+			}
+		]
+	}
 
-{
-	"repos": [
-		{
-			"url": "https://github.com/WelrodMkII/SpinelOrica",
-			"repo_name": "커스텀 확장팩",
-			"repo_path": "./expansions-2",
-			"data_path": "",
-			"pics_path": "pics",
-			"script_path": "script",
-			"should_update": true,
-			"should_read": true
-		}
-	]
-}
-    
 
 Setup 2.
 
