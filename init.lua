@@ -1,9 +1,9 @@
-dofile("expansions/proc_order.lua")
-dofile("expansions/init_Spinel.lua")
+dofile("expansions-2/proc_order.lua")
+dofile("expansions-2/init_Spinel.lua")
 
-dofile("expansions/OriCS-procs/_custom_type.lua")
-dofile("expansions/OriCS-procs/custom_card_type_constants.lua")
-dofile("expansions/OriCS-procs/ygocore_utility.lua")
+dofile("expansions-2/OriCS-procs/_custom_type.lua")
+dofile("expansions-2/OriCS-procs/custom_card_type_constants.lua")
+dofile("expansions-2/OriCS-procs/ygocore_utility.lua")
 
 --[[
 
