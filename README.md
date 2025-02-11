@@ -31,3 +31,7 @@ Setup 2.
 init.lua <- move to main directory (not /expansion)
 
 ■■■■■■■■■■■■■■■■■■■■■■■■
+
+What is an Order summon? -> https://github.com/WelrodMkII/SpinelOrica/issues/2
+
+![Image](https://github.com/user-attachments/assets/3b86ecd4-ff54-4654-8ee1-dd5c13585b75)
