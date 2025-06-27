@@ -2,6 +2,7 @@
 local m=99000212
 local cm=_G["c"..m]
 function cm.initial_effect(c)
+	aux.AddCodeList(c,99000218)
 	--change code
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
