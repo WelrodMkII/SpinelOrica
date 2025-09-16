@@ -1,21 +1,21 @@
---洹몃┝???띿뿉???쇱뼱?섎뒗 苑껋쿂??
+--그림자 속에서 피어나는 꽃처럼
 local s,id=GetID()
 function s.initial_effect(c)
-	--??移대뱶紐낆? 猷곗긽 "?섎꽆釉뚮씪 ?좏겙"?쇰줈??痍④툒?쒕떎.
+	--이 카드명은 룰상 "페넘브라 토큰"으로도 취급한다.
 	local e0a=Effect.CreateEffect(c)
 	e0a:SetType(EFFECT_TYPE_SINGLE)
 	e0a:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e0a:SetCode(EFFECT_ADD_CODE)
 	e0a:SetValue(99000417)
 	c:RegisterEffect(e0a)
-	--?먯떊?대굹 ?곷????깆뿉 移대뱶媛 ?욌㈃?쇰줈 議댁옱??寃쎌슦, ??移대뱶???명듃???댁뿉??諛쒕룞?????덈떎.
+	--자신이나 상대의 덱에 카드가 앞면으로 존재할 경우, 이 카드는 세트한 턴에도 발동할 수 있다.
 	local e0b=Effect.CreateEffect(c)
 	e0b:SetType(EFFECT_TYPE_SINGLE)
 	e0b:SetCode(EFFECT_TRAP_ACT_IN_SET_TURN)
 	e0b:SetProperty(EFFECT_FLAG_SET_AVAILABLE)
 	e0b:SetCondition(s.actcon)
 	c:RegisterEffect(e0b)
-	--Activate
+	--자신의 패 / 필드의 몬스터를 융합 소재로서 릴리스하고, 어둠 속성의 융합 몬스터 1장을 융합 소환한다.
 	local e1=Fusion.CreateSummonEff({handler=c,
 							fusfilter=aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_DARK),
 							matfilter=Card.IsReleasable,
@@ -25,7 +25,7 @@ function s.initial_effect(c)
 	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCountLimit(1,id)
 	c:RegisterEffect(e1)
-	--??移대뱶???쇰컲 紐ъ뒪?곌? ?섍퀬, 紐ъ뒪??議댁뿉 ?뱀닔 ?뚰솚?쒕떎.
+	--이 카드는 일반 몬스터(야수전사족 / 빛 / 레벨 3 / 공 1900 / 수 0)가 되고, 몬스터 존에 특수 소환한다.
 	local params={matfilter=Card.IsAbleToRemove,
 				extrafil=s.fextra2,
 				extraop=Fusion.BanishMaterial}

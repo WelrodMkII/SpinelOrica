@@ -1,4 +1,4 @@
---?섎꽆釉뚮씪 釉붾윭?쒕씪??
+--페넘브라 블러드라인
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -7,7 +7,7 @@ function s.initial_effect(c)
 	e0:SetCode(EVENT_FREE_CHAIN)
 	e0:SetCost(s.actreg)
 	c:RegisterEffect(e0)
-	--?깆뿉??"?섎꽆釉뚮씪" 紐ъ뒪??1?μ쓣 ?⑥뿉 ?ｋ뒗?? 洹??? ?먯떊????/ ?꾨뱶??紐ъ뒪??1?μ쓣 由대━?ㅽ븳??
+	--덱에서 "페넘브라" 몬스터 1장을 패에 넣는다. 그 후, 자신의 패 / 필드의 몬스터 1장을 릴리스한다.
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH+CATEGORY_RELEASE)
@@ -18,7 +18,7 @@ function s.initial_effect(c)
 	e1:SetTarget(s.thtg)
 	e1:SetOperation(s.thop)
 	c:RegisterEffect(e1)
-	--???댁뿉, ?댄븯???④낵瑜?媛곴컖 ?곸슜?쒕떎.
+	--이 턴에, 이하의 효과를 각각 적용한다.
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,1))
 	e2:SetType(EFFECT_TYPE_IGNITION)
@@ -28,7 +28,7 @@ function s.initial_effect(c)
 	e2:SetTarget(s.fusmattg)
 	e2:SetOperation(s.fusmatop)
 	c:RegisterEffect(e2)
-	--?먯떊 ?꾨뱶??"?섎꽆釉뚮씪" 移대뱶媛 ?꾪닾 / ?④낵濡??뚭눼??寃쎌슦, ??좎뿉 ?먯떊 ?꾨뱶??"?섎꽆釉뚮씪" 移대뱶 1?μ쓣 由대━?ㅽ븷 ???덈떎.
+	--자신 필드의 "페넘브라" 카드가 전투 / 효과로 파괴될 경우, 대신에 덱에서 앞면인 카드 1장을 제외할 수 있다.
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
 	e3:SetCode(EFFECT_DESTROY_REPLACE)
@@ -79,7 +79,7 @@ function s.fusmatop(e,tp,eg,ep,ev,re,r,rp)
 	local break_chk=false
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) and tc:IsFaceup() then
-		--洹??욌㈃ ?쒖떆 紐ъ뒪?곕? ?듯빀 ?뚯옱濡???寃쎌슦, "?섎꽆釉뚮씪" 紐ъ뒪?곕줈 痍④툒?????덈떎.
+		--그 앞면 표시 몬스터를 융합 소재로 할 경우, "페넘브라" 몬스터로 취급할 수 있다.
 		local e0=Effect.CreateEffect(c)
 		e0:SetDescription(aux.Stringid(id,2))
 		e0:SetType(EFFECT_TYPE_SINGLE)
@@ -93,14 +93,13 @@ function s.fusmatop(e,tp,eg,ep,ev,re,r,rp)
 	end
 	if break_chk then Duel.BreakEffect() end
 	aux.RegisterClientHint(c,0,tp,1,0,aux.Stringid(id,3))
-	--?듯빀 紐ъ뒪?곕? ?듯빀 ?뚰솚?섎뒗 ?④낵瑜??ы븿?섎뒗 ?④낵瑜??먯떊??諛쒕룞?덉쓣 寃쎌슦, 洹?諛쒕룞? 臾댄슚?붾릺吏 ?딆쑝硫? 洹??듯빀 ?뚰솚 ?깃났?쒖뿉 ?곷???移대뱶???④낵瑜?諛쒕룞?????녿떎.
+	--융합 몬스터를 융합 소환하는 효과를 포함하는 효과를 자신이 발동했을 경우, 그 발동은 무효화되지 않으며, 그 융합 소환 성공시에 상대는 카드의 효과를 발동할 수 없다.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_CANNOT_INACTIVATE)
 	e1:SetValue(s.efilter)
 	e1:SetReset(RESET_PHASE|PHASE_END)
 	Duel.RegisterEffect(e1,tp)
-	--This turn, your opponent cannot activate cards or effects when a monster is Fusion Summoned this way
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)

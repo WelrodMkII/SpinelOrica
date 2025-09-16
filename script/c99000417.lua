@@ -1,4 +1,4 @@
---?섎꽆釉뚮씪 ?좏겙
+--페넘브라 토큰
 local s,id=GetID()
 function s.initial_effect(c)
 	--pendulum summon

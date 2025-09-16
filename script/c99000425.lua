@@ -1,7 +1,7 @@
---?섎꽆釉뚮씪 移명?鍮뚮젅
+--페넘브라 칸타빌레
 local s,id=GetID()
 function s.initial_effect(c)
-	--?댄븯???④낵?먯꽌 1媛쒕? ?좏깮?섍퀬 諛쒕룞?????덈떎.
+	--이하의 효과에서 1개를 선택하고 발동할 수 있다.
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -32,7 +32,7 @@ function s.extra_target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetPossibleOperationInfo(0,CATEGORY_RELEASE,nil,0,tp,LOCATION_DECK|LOCATION_EXTRA)
 end
 function s.extra_operation(e,tc,tp,sg)
-	Duel.SendtoGrave(sg,REASON_EFFECT+REASON_RELEASE+REASON_MATERIAL+REASON_FUSION)
+	Duel.SendtoGrave(sg,REASON_EFFECT|REASON_RELEASE|REASON_MATERIAL|REASON_FUSION)
 	sg:Clear()
 end
 function s.thfilter(c)
@@ -44,10 +44,10 @@ function s.efftg(e,tp,eg,ep,ev,re,r,rp,chk)
 				extrafil=s.fextra,
 				extratg=s.extra_target,
 				extraop=s.extra_operation}
-	--"?섎꽆釉뚮씪 移명?鍮뚮젅" ?댁쇅???먯떊????/ ?쒖쇅 ?곹깭??"?섎꽆釉뚮씪" 移대뱶 1?μ쓣 ?⑥뿉 ?ｋ뒗??
+	--"페넘브라 칸타빌레" 이외의 자신의 덱 / 제외 상태인 "페넘브라" 카드 1장을 패에 넣는다.
 	local b1=not Duel.HasFlagEffect(tp,id)
 		and Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK|LOCATION_REMOVED,0,1,nil)
-	--?먯떊????/ ?꾨뱶??紐ъ뒪?곕? ?듯빀 ?뚯옱濡쒖꽌 由대━?ㅽ븯怨? "?섎꽆釉뚮씪" ?듯빀 紐ъ뒪??1?μ쓣 ?듯빀 ?뚰솚?쒕떎. 
+	--자신의 패 / 필드의 몬스터를 융합 소재로서 릴리스하고, "페넘브라" 융합 몬스터 1장을 융합 소환한다.
 	local b2=not Duel.HasFlagEffect(tp,id+1)
 		and Fusion.SummonEffTG(params)(e,tp,eg,ep,ev,re,r,rp,0)
 	if chk==0 then return b1 or b2 end
@@ -68,7 +68,7 @@ end
 function s.effop(e,tp,eg,ep,ev,re,r,rp)
 	local op=e:GetLabel()
 	if op==1 then
-		--"?섎꽆釉뚮씪 移명?鍮뚮젅" ?댁쇅???먯떊????/ ?쒖쇅 ?곹깭??"?섎꽆釉뚮씪" 移대뱶 1?μ쓣 ?⑥뿉 ?ｋ뒗??
+		--"페넘브라 칸타빌레" 이외의 자신의 덱 / 제외 상태인 "페넘브라" 카드 1장을 패에 넣는다.
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 		local g=Duel.SelectMatchingCard(tp,s.thfilter,tp,LOCATION_DECK|LOCATION_REMOVED,0,1,1,nil)
 		if #g>0 then
@@ -76,7 +76,7 @@ function s.effop(e,tp,eg,ep,ev,re,r,rp)
 			Duel.ConfirmCards(1-tp,g)
 		end
 	elseif op==2 then
-		--?먯떊????/ ?꾨뱶??紐ъ뒪?곕? ?듯빀 ?뚯옱濡쒖꽌 由대━?ㅽ븯怨? "?섎꽆釉뚮씪" ?듯빀 紐ъ뒪??1?μ쓣 ?듯빀 ?뚰솚?쒕떎.
+		--자신의 패 / 필드의 몬스터를 융합 소재로서 릴리스하고, "페넘브라" 융합 몬스터 1장을 융합 소환한다.
 		local params={fusfilter=aux.FilterBoolFunction(Card.IsSetCard,0xc11),
 				matfilter=Card.IsReleasable,
 				extrafil=s.fextra,
