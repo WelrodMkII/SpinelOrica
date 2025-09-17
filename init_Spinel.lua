@@ -567,8 +567,14 @@ local gswsg=Group.SelectWithSumGreater
 
 function Spinel.PenumbraBeforeOperation()
 	local ce,cp=Duel.GetChainInfo(0,CHAININFO_TRIGGERING_EFFECT,CHAININFO_TRIGGERING_PLAYER)
-	local cc=ce:GetHandler()
+	local cc=nil
+	if ce then
+		cc=ce:GetHandler()
+	end
 	if not cc or not cc:IsLocation(0x7e) then
+		if not cp then
+			cp=0
+		end
 		cc=Duel.GetFirstMatchingCard(aux.TRUE,cp,LOCATION_EXTRA,0,nil)
 		if not cc then
 			cc=Duel.GetFirstMatchingCard(aux.TRUE,cp,LOCATION_REMOVED,0,nil)
