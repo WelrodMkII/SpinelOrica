@@ -1,13 +1,37 @@
 dofile("expansions-2/proc_order.lua")
 dofile("expansions-2/init_Spinel.lua")
 
+dofile("expansions-2/OriCS-procs/CS_Init.lua")
+--dofile("expansions-2/OriCS-procs/OriCS_proc_fusion.lua")
+--dofile("expansions-2/OriCS-procs/OriCS_proc_link.lua")
+--dofile("expansions-2/OriCS-procs/OriCS_proc_ritual.lua")
+--dofile("expansions-2/OriCS-procs/OriCS_proc_synchro.lua")
+dofile("expansions-2/OriCS-procs/OriCS_proc_xyz.lua")
+dofile("expansions-2/OriCS-procs/ygocore_constant.lua")
+if IREDO_COMES_TRUE==nil then dofile("expansions-2/OriCS-procs/ygocore_proc_procs.lua") end
+dofile("expansions-2/OriCS-procs/ygocore_proc_fusion.lua")
+dofile("expansions-2/OriCS-procs/ygocore_proc_link.lua")
+dofile("expansions-2/OriCS-procs/ygocore_proc_pendulum.lua")
+dofile("expansions-2/OriCS-procs/ygocore_proc_ritual.lua")
+dofile("expansions-2/OriCS-procs/ygocore_proc_synchro.lua")
+dofile("expansions-2/OriCS-procs/ygocore_proc_xyz.lua")
+dofile("expansions-2/OriCS-procs/ygocore_utility.lua")
+
+--OriCS utilities
+dofile("expansions-2/OriCS-procs/deprefunc_nodebug.lua")
+dofile("expansions-2/OriCS-procs/_register_effect.lua")
 dofile("expansions-2/OriCS-procs/_custom_type.lua")
 dofile("expansions-2/OriCS-procs/custom_card_type_constants.lua")
-dofile("expansions-2/OriCS-procs/ygocore_utility.lua")
-dofile("expansions-2/OriCS-procs/init_ireina.lua")
+dofile("expansions-2/OriCS-procs/proc_equation.lua")
+dofile("expansions-2/OriCS-procs/proc_diffusion.lua")
+dofile("expansions-2/OriCS-procs/proc_beyond.lua")
 dofile("expansions-2/OriCS-procs/proc_square.lua")
-dofile("expansions-2/OriCS-procs/proc_module.lua")
 dofile("expansions-2/OriCS-procs/proc_delight.lua")
+dofile("expansions-2/OriCS-procs/proc_scripted.lua")
+dofile("expansions-2/OriCS-procs/proc_module.lua")
+dofile("expansions-2/OriCS-procs/proc_equal.lua")
+dofile("expansions-2/OriCS-procs/additional_setcards.lua")
+dofile("expansions-2/OriCS-procs/additional_setcards_expand.lua")
 
 --[[
 
